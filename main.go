@@ -109,10 +109,10 @@ func init() {
 		&importsOrder,
 		importsOrderArg,
 		"std,general,company,project",
-		`Your imports groups can be sorted in your way. 
-std - std import group; 
-general - libs for general purpose; 
-company - inter-org or your company libs(if you set '-company-prefixes'-option, then 4th group will be split separately. In other case, it will be the part of general purpose libs); 
+		`Your imports groups can be sorted in your way.
+std - std import group;
+general - libs for general purpose;
+company - inter-org or your company libs(if you set '-company-prefixes'-option, then 4th group will be split separately. In other case, it will be the part of general purpose libs);
 project - your local project dependencies;
 blanked - imports with "_" alias;
 dotted - imports with "." alias.
@@ -389,7 +389,7 @@ func resultPostProcess(hasChange bool, deprecatedMessagesCh chan string, originF
 func validateRequiredParam(filePath string) error {
 	if filePath == reviser.StandardInput {
 		stat, _ := os.Stdin.Stat()
-		if stat.Mode()&os.ModeNamedPipe == 0 {
+		if stat.Mode()&os.ModeNamedPipe == 0 && stat.Mode()&os.ModeSocket == 0 {
 			// no data on stdin
 			return fmt.Errorf("no data on stdin")
 		}
